@@ -44,11 +44,12 @@ export class UserController {
 
     async #add(req: Request, res: Response): Promise<Response> {
         try {
-            console.log('incoming payload =>', req.body);
+            const payload = req.body;
+            console.log('incoming payload =>', payload);
             return res
                 .status(200)
                 .json({
-                    message: 'success',
+                    ...payload,
                 });
         } catch (error) {
             return manageError(res, error);
