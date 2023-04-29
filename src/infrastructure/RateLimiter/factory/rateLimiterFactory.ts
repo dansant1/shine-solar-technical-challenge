@@ -1,5 +1,4 @@
 import {
-    RedisCacheClient,
     CacheClient,
 } from '../../cache';
 import {

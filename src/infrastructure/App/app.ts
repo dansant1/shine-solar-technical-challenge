@@ -23,21 +23,15 @@ export class App {
         return new App(appInit);
     }
 
-    private _setMiddlewares(middlewares: Middlewares): void {
+    _setMiddlewares(middlewares: Middlewares): void {
         middlewares.forEach(middleware => {
             this.app.use(middleware);
         });
     }
 
-    private _setServices(controllers: Controllers): void {
+    _setServices(controllers: Controllers): void {
         const serviceName = this.name;
         controllers.forEach(controller => {
-            controller.router.stack.forEach((element: any) => {
-                element?.route.stack?.forEach((elementThis: any) => {
-                    const method = elementThis.method.toUpperCase();
-                    console.log(`${method} ${serviceName}/api${element.route.path}`);    
-                });
-            });
             this.app.use(`/${serviceName}/api`, controller.router);
         });
     }
