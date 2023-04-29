@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  node:
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      - REDIS_HOST=redis
+      - PORT=3000
+      - RATE_LIMITER_LINEAR_POINTS=10
+      - RATE_LIMITER_LINEAR_DURATION=60
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
