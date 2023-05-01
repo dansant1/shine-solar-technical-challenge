@@ -16,6 +16,7 @@ import {
     manageError,
     errors,
 } from '../../global';
+import ip from 'ip';
 
 function createRateLimiterMiddleware(options: RateLimiterMiddlewareOptions) {
     const { 
@@ -31,7 +32,7 @@ function createRateLimiterMiddleware(options: RateLimiterMiddlewareOptions) {
         next: NextFunction,
     ) {
         try {
-            const rateLimiter = rateLimiterFactory.createLinear(`localhost:${req.method}:${req.originalUrl}`);
+            const rateLimiter = rateLimiterFactory.createLinear(`${ip.address()}:${req.method}:${req.originalUrl}`);
             const pointsLeft = await rateLimiter.consume();
             res.setHeader('X-RateLimit-Remaining', pointsLeft);
             next();
@@ -44,7 +45,7 @@ function createRateLimiterMiddleware(options: RateLimiterMiddlewareOptions) {
                 next(error);
             }
         }
-  };
+    };
 }
 
 const redisCacheClientInstance = RedisCacheClient.create({

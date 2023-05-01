@@ -2,7 +2,7 @@
 
 The technical challenge is about create a rate-limiter and data transformation service.
 
-## Stack
+## Tech Stack
 
 * Typescript
 * NodeJS
@@ -54,7 +54,11 @@ curl --location --request POST 'http://localhost:3000/base-service/api/v1/public
 --header 'Content-Type: application/json' \
 --data-raw '{
     "email": "daniel@gmail.com",
-    "name": null
+    "profile": {
+        "name": "Daniel", 
+        "other": null,
+        "lastName": "Delgadillo"
+    }
 }'
 ```
 
